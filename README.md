@@ -16,4 +16,4 @@ Slothblog es un foro en línea donde los usuarios pueden discutir temas diversos
 1. Clona el repositorio
 
    ```bash
-  https://github.com/xakutime/entregaFinal.git
+   https://github.com/xakutime/entregaFinal.git
