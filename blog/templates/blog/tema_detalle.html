@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ tema.nombre }} - Foro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'pagina_inicio' %}"><img src="{% static 'images/logo.png' %}" alt="Logo"></a>
+        <a href="{% url 'about' %}">About</a> <!-- Enlace al About -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'perfil' %}">¡Bienvenido, {{ user.username }}!</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'registro' %}">Sign Up</a>
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        <h1>{{ tema.nombre }}</h1>
+        <p>{{ tema.descripcion }}</p>
+        <h2>Comentarios</h2>
+        <ul>
+            {% for comentario in comentarios %}
+                <li>
+                    {% if comentario.autor.foto_perfil %}
+                        <img src="{{ comentario.autor.foto_perfil.url }}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% else %}
+                        <img src="{% static 'images/default_profile_pic.png' %}" alt="Foto de perfil" style="width: 50px; height: 50px; border-radius: 50%;">
+                    {% endif %}
+                    <strong>{{ comentario.autor.username }}</strong>: 
+                    <p>{{ comentario.texto|linebreaksbr }}</p>
+                    <p><small>{{ comentario.fecha|date:"d M Y H:i" }}</small></p>
+                    {% if comentario.archivo %}
+                        <img src="{{ comentario.archivo.url }}" alt="Archivo adjunto" style="max-width: 100%; height: auto;">
+                    {% endif %}
+                    {% if user.is_superuser or user == comentario.autor %}
+                        <form action="{% url 'eliminar_comentario' comentario.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <h2>Agregar Comentario</h2>
+        {% if mensaje_error %}
+            <p style="color: red;">{{ mensaje_error }}</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        {% else %}
+            <p>Debes estar logueado para agregar un comentario.</p>
+        {% endif %}
+    </div>
+    <footer>
+        © 2024 Foro
+    </footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Foro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'pagina_inicio' %}"><img src="{% static 'images/logo.png' %}" alt="Logo"></a>
+        <a href="{% url 'about' %}">About</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'perfil' %}">¡Bienvenido, {{ user.username }}!</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'registro' %}">Sign Up</a>
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        <h1>route About/</h1>
+        <p>Bienvenido a Slothblog nuestro foro. Disfruta comentando tus experiencias sobre cada tematica</p>
+        <p>Mi nombre es Matías Padín esta página es la entrega final de coderhouse</p>
+    </div>
+    <footer>
+        © 2024 Foro
+    </footer>
+</body>
+</html>

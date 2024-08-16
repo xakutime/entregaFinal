@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Slothblog</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'pagina_inicio' %}"><img src="{% static 'images/logo.png' %}" alt="Logo"></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'registro' %}">Sign Up</a>
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </nav>
+    <div class="container">
+        <h1>Registro</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-field">
+                {{ form.username.label_tag }} {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error">
+                        {{ form.username.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-field">
+                {{ form.email.label_tag }} {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-field">
+                {{ form.password1.label_tag }} {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="error">
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-field">
+                {{ form.password2.label_tag }} {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error">
+                        {{ form.password2.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+    <footer>
+        © 2024 Slothblog
+    </footer>
+</body>
+</html>
