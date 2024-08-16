@@ -1,7 +1,7 @@
 # entregaFinal
 # Slothblog
 
-Slothblog es un foro en línea donde los usuarios pueden discutir temas diversos como cocina, política, animales y fitness. Los usuarios pueden registrarse, iniciar sesión, y participar en discusiones, mientras que los administradores tienen la capacidad de crear nuevos temas y moderar los comentarios.
+Slothblog es un foro en línea donde los usuarios pueden discutir temas diversos como cocina, política, animales y fitness. Los usuarios pueden registrarse, iniciar sesión, y participar en discusiones, mientras que los administradores tienen la capacidad de crear nuevos temas y moderar los comentarios. Creado por Matías Padín
 
 ## Características
 
